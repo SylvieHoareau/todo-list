@@ -1,0 +1,16 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "todolist avec node js",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm start",
+    "test": "npm run dev"
+  },
+  "keywords": [
+    "todo",
+    "list"
+  ],
+  "author": "sylvie",
+  "license": "ISC"
+}
