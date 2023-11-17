@@ -4,7 +4,7 @@
   "description": "todolist avec node js",
   "main": "index.js",
   "scripts": {
-    "start": "npm start",
+    "start": "nodemon app.js",
     "test": "npm run dev"
   },
   "keywords": [
@@ -12,5 +12,12 @@
     "list"
   ],
   "author": "sylvie",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "validator": "^13.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
 }
