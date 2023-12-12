@@ -4,6 +4,74 @@ import validator from 'validator'
 import chalk from 'chalk'
 import yargs from 'yargs'
 
+// Importation du module Express
+import express from 'express'
+import http from 'http'
+import fetch from 'node-fetch'
+import axios from 'axios'
+
+// Création d'une nouvelle application Express
+const app = express()
+
+// Définition d'une route pour la racine du site
+app.get('/', (req, res) => {
+    res.send('Hello World')
+})
+
+// Pour envoyer du HTML
+app.get('/html', (req, res) => {
+    res.send('<h1>Hello World</h1>')
+})
+
+// Pour envoyer du JSON
+app.get('/json', (req, res) => {
+    res.json({ message: 'Bonjour Monde'})
+})
+
+// Configurer EJS comme moteur de vue
+app.set('view engine', 'ejs')
+
+// Configurer le répertoire de vue
+app.set('views', path.join(__dirname, 'views'))
+
+// Rendre une vue
+app.get('/view', (req, res) => {
+    res.render('index', { message: 'Hello World' })
+})
+
+http.get('https://api.jikan.moe/v4/anime?q=Dragon Ball Z&sfw', (res) => {
+    let data = ''
+
+    res.on('data', (chunk) => {
+        data += chunk
+    })
+
+    res.on('end', () => {
+        let animeData = JSON.parse(data)
+        console.log(animeData)
+    })
+}).on('error', (err) => {
+    console.log('Error:' + err.message)
+})
+
+// Utilisation de fetch
+fetch('https://api.jikan.moe/v4/anime?q=Dragon%20Ball%20Z&sfw')
+    .then(res => res.json)
+    .then(json => console.log(json))
+    .catch(err => console.log('Error:', err))
+
+// Utilisation d'AXIOS
+const getAnimeData = async () => {
+    try {
+        const response = await axios.get('https://api.jikan.moe/v4/anime?q=Dragon%20Ball%20Z&sfw')
+        console.log(response.data)
+    } catch (error) {
+       console.log(error)
+    }
+}
+
+getAnimeData()
+
 console.log('Hello Node JS')
 // console.log(name)
 console.log(getNotes())
@@ -129,3 +197,8 @@ const loadNotes = (notes) => {
 
 // Exécuter yargs
 yargs.parse()
+
+// Démarrage du serveur sur le port 3000
+app.listen(3000, () => {
+    console.log('Server is running on port 3000')
+})
